@@ -1,4 +1,4 @@
-name: botpeas_action
+name: alertbot_action
 
 on:
   #schedule:
@@ -21,7 +21,7 @@ jobs:
         run: python3 -m pip install -r requirements.txt
 
       - name: Run CVEs Monitor
-        run: python3 botpeas.py
+        run: python3 alertbot.py
         shell: bash
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
@@ -34,12 +34,12 @@ jobs:
           NTFY_AUTH: ${{ secrets.NTFY_AUTH }}
 
       - name: Create local changes
-        run: git add output/botpeas.json
+        run: git add output/alertbot.json
 
       - name: Commit results to Github
         run: |
             git config --local user.email ""
-            git config --global user.name "BotPEASS"
+            git config --global user.name "AlertBot"
             git commit -m "Bot auto update" -a --allow-empty
 
       - name: Push changes
